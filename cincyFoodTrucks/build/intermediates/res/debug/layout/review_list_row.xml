@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+<RatingBar
+        android:id="@+id/viewTruckRatingRatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="6dp"
+        android:isIndicator="true"
+        android:stepSize=".5" />
+      
+    <TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtReviewDesc"   
+        android:layout_below="@+id/viewTruckRatingRatingBar"
+        android:layout_marginTop="3dip"
+        android:textSize="24sp"  
+        android:layout_marginLeft="6dip">  
+    </TextView>
+    <TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtReviewReviewerName"   
+        android:layout_below="@+id/txtReviewDesc"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>
+</RelativeLayout><!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/layout/review_list_row.xml -->

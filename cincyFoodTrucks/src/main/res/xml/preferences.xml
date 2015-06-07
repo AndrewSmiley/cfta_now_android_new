@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+   <EditTextPreference
+        android:key="@string/strPreferencesUsername"
+        android:title="@string/strUsername"
+        android:summary="@string/strUsernameDesc"/>
+ <EditTextPreference
+        android:key="@string/strPreferencesPassword"
+        android:title="@string/strPassword"
+        android:summary="@string/strPasswordDesc"
+        android:inputType="textPassword"  
+        />    
+        <CheckBoxPreference
+            android:key="@string/strEnableNavigation"
+            android:title="@string/strEnableNavigationTitle"
+            android:summary="@string/strEnableNavigationSummary"
+            
+            />
+        
+</PreferenceScreen>

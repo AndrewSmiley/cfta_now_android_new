@@ -1,0 +1,98 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_menu"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strTruckDashboard"/>
+     <item
+        android:id="@+id/action_update_location"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strUpdateLocation"/>
+     
+     <item
+        android:id="@+id/action_new_menu_item"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strCreateNewMenuItem"/>
+     
+     <!--Adding basic user actions back in   -->
+      <item
+        android:id="@+id/action_search_for_foods"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strSearchForFoodslbl"/>
+    	         <item
+        android:id="@+id/action_view_all_trucks"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strViewAllTrucksLbl"/>  
+    
+    	  <item
+        android:id="@+id/action_truck_list"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strTruckList"/>
+    	    <item
+        android:id="@+id/action_view_map"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strViewMap"/>
+    	    <!--  -->
+     
+     
+       <item
+        android:id="@+id/action_change_password"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strChangePasswordTitle"/>
+        	        
+     
+        	        
+    	       <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/action_settings"/>
+     
+    	      <item
+        android:id="@+id/action_contact"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strContact"/>
+    	       <item
+        android:id="@+id/action_rate_us"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strRate"/>
+    	      
+    	        
+    	        <item
+        android:id="@+id/action_about"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        
+        android:title="@string/strAbout"/>
+
+    	            	           <item
+        android:id="@+id/action_newsfeed"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/strNewsFeed"/>
+    	
+    
+
+</menu>
+<!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/menu/admin_menu.xml -->

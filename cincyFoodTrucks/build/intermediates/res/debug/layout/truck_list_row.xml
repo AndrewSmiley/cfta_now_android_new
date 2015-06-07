@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+<TextView   
+        android:textAppearance="?android:attr/textAppearanceLarge"   
+        android:layout_height="wrap_content"   
+         
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtTruckListTitle"   
+        
+        android:layout_marginTop="6dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>  
+	<TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtTruckAverageRating"   
+        android:layout_below="@+id/txtTruckListTitle"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>      
+
+    <TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtTruckListDistance"   
+        android:layout_below="@+id/txtTruckAverageRating"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>
+    <TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtTruckListHours"   
+        android:layout_below="@+id/txtTruckListDistance"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>
+</RelativeLayout>
+<!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/layout/truck_list_row.xml -->

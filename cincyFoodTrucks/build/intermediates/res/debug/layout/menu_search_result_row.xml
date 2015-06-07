@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+<TextView   
+        android:textAppearance="?android:attr/textAppearanceLarge"   
+        android:layout_height="wrap_content"   
+         
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtSearchResultMenuItemTitle"   
+        
+        android:layout_marginTop="6dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>  
+	<TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtSearchResultMenuItemDesc"   
+        android:layout_below="@+id/txtSearchResultMenuItemTitle"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>      
+
+    <TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtSearchResultMenuItemPrice"   
+        android:layout_below="@+id/txtSearchResultMenuItemDesc"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>
+    <TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtSearchResultMenuItemTruckName"   
+        android:layout_below="@+id/txtSearchResultMenuItemPrice"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip"
+        >  
+    </TextView>
+    <TextView   
+        android:layout_height="wrap_content"   
+        android:layout_width="wrap_content"   
+        android:id="@+id/txtSearchResultMenuItemTruckDistance"   
+        android:layout_below="@+id/txtSearchResultMenuItemTruckName"
+        android:layout_marginTop="3dip"  
+        android:layout_marginLeft="6dip">  
+    </TextView>
+</RelativeLayout><!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/layout/menu_search_result_row.xml -->

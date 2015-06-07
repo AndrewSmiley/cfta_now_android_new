@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+    
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+        
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCreateNewMenuItem"
+        android:layout_width="150dp"
+        
+        android:layout_height="65dp"
+        
+        android:layout_below="@+id/postLocationBtn"
+        android:layout_centerHorizontal="true"
+        android:onClick="onCreateNewMenuItemClicked"
+        android:text="@string/strCreateNewMenuItem" />
+
+    <Button
+        android:id="@+id/postLocationBtn"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_alignLeft="@+id/locationMapBtn"
+        android:layout_below="@+id/locationMapBtn"
+        android:onClick="onUpdateLocationClicked"
+        android:text="@string/strUpdateLocation" />
+
+    <Button
+        android:id="@+id/locationListBtn"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_centerHorizontal="true"
+        android:onClick="onLocationListClicked"
+        android:text="@string/strTruckList" />
+
+    <Button
+        android:id="@+id/locationMapBtn"
+        android:layout_width="150dp"
+        android:layout_height="65dp"
+        android:layout_alignLeft="@+id/locationListBtn"
+        android:layout_below="@+id/locationListBtn"
+        android:onClick="onLocationMapClicked"
+        android:text="@string/strViewMap" />
+
+    <Button
+        android:id="@+id/changePasswordBtn"
+         android:layout_width="150dp"
+        android:layout_height="65dp"
+       
+        android:layout_below="@+id/btnCreateNewMenuItem"
+        android:layout_centerHorizontal="true"
+        android:onClick="onChangePasswordClicked"
+        android:text="@string/strChangePasswordTitle" />
+    
+     <LinearLayout
+        android:id="@+id/menuViewLinearLayout"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_below="@+id/changePasswordBtn"
+        android:orientation="vertical" >
+        
+    </LinearLayout>
+    <!-- android:layout_alignParentTop="true" -->
+
+</RelativeLayout>
+<!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/layout/activity_menu.xml -->

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CincyFoodTrucks.iml" filepath="$PROJECT_DIR$/CincyFoodTrucks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cincyFoodTrucks/cincyFoodTrucks.iml" filepath="$PROJECT_DIR$/cincyFoodTrucks/cincyFoodTrucks.iml" />
+    </modules>
+  </component>
+</project>
