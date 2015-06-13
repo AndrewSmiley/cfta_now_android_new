@@ -124,5 +124,7 @@ mail updates</string>
     <string name="strImageLoaded">Image Loaded Successfully</string>
     <string name="strCannotAcquireLocation">Cannot acquire current location! Please check location settings and try again. </string>
      <string name="strNewsFeed">Newsfeed</string>
+    <string name="strConnectFacebook">Connect Facebook</string>
+    <string name="facebook_app_id">696538993808289</string>
     
 </resources>

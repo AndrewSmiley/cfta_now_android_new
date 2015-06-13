@@ -287,6 +287,7 @@
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/values/strings.xml -->
     <eat-comment/>
+    <string name="facebook_app_id">696538993808289</string>
     <string name="hello_world">Hello world!</string>
     <string name="lblCurrentPassword">Current Password</string>
     <string name="lblIMenutemImage">Menu Item Image</string>
@@ -317,6 +318,7 @@
     <string name="strChangePasswordTitle">Change Password</string>
     <string name="strChooseNewPhoto">Choose Existing</string>
     <string name="strCommentsLbl">Thoughts</string>
+    <string name="strConnectFacebook">Connect Facebook</string>
     <string name="strContact">Contact</string>
     <string name="strCouldNotMakeReview">Error! Could Not Make Review!</string>
     <string name="strCreateNewMenuItem">Create New Menu Item</string>

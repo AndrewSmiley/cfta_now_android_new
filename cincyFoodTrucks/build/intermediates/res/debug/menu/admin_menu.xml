@@ -86,13 +86,18 @@
         
         android:title="@string/strAbout"/>
 
-    	            	           <item
+    <item
         android:id="@+id/action_newsfeed"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/strNewsFeed"/>
-    	
-    
+    <item
+        android:id="@+id/action_connect_facebook"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/strConnectFacebook"/>
+
+
 
 </menu>
 <!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/menu/admin_menu.xml -->

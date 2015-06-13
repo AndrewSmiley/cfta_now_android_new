@@ -80,14 +80,20 @@
         android:showAsAction="never"
         
         android:title="@string/strAbout"/>
-    	       
-    	            	           <item
+
+    <item
         android:id="@+id/action_newsfeed"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="@string/strNewsFeed"/>
-    	        
-    	
-    
+    <item
+        android:id="@+id/action_connect_facebook"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/strConnectFacebook"/>
+
+
+
+
 
 </menu>

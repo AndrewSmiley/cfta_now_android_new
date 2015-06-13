@@ -2,32 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/Andrew/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        jar="/Users/Andrew/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
-        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
-        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-3a2b76367d5604df53d382fdba1ed62ff0d5b70c.jar" />
-    </item>
-    <item
-        jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-e0797d6bef7eb9e20d2d1fd7152965ebce0cc425.jar" />
-    </item>
-    <item
-        jar="/Users/Andrew/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.2.1/66f13681add50ca9e4546ffabafaaac7645db3cf/commons-lang3-3.2.1.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="66f13681add50ca9e4546ffabafaaac7645db3cf">
-        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/commons-lang3-3.2.1-ade862181fc7cde77da0aad2cf1b2082d20f8a88.jar" />
-    </item>
-    <item
-        jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="a78bfd2ec508b123ee7c03f4006ba7996ef9a8dc">
-        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/classes-5092b3e9fabe963aba638f0e75923cf1eec1def9.jar" />
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-a17ed9c65dac55beae86e124c07b0d5e51219b30.jar" />
     </item>
     <item
         jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.google.android.gms/play-services/4.2.42/jars/classes.jar"
@@ -37,6 +16,13 @@
         <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/classes-9cdf94d6ebf5082b3fd3415d52f23196e506f341.jar" />
     </item>
     <item
+        jar="/Users/Andrew/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-3a2b76367d5604df53d382fdba1ed62ff0d5b70c.jar" />
+    </item>
+    <item
         jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/classes.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
@@ -44,18 +30,11 @@
         <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/classes-89043a45709f2770250793f7dcb402f6dd3ae6ac.jar" />
     </item>
     <item
-        jar="/Users/Andrew/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/jars/libs/internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="23.0.0 rc2"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-a17ed9c65dac55beae86e124c07b0d5e51219b30.jar" />
-    </item>
-    <item
-        jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
-        jumboMode="false"
-        revision="23.0.0 rc2"
-        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
-        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/classes-ca655fc863a1cae04b273932398a29dcd926d4b7.jar" />
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-e0797d6bef7eb9e20d2d1fd7152965ebce0cc425.jar" />
     </item>
     <item
         jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/libs/newrelic.android.jar"
@@ -63,6 +42,27 @@
         revision="23.0.0 rc2"
         sha1="4cb6841336616f8f3c16180a4e8de53670cfafb7">
         <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/newrelic.android-512e67dd613ecb53deab7641ea5d8aea21edcade.jar" />
+    </item>
+    <item
+        jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="a78bfd2ec508b123ee7c03f4006ba7996ef9a8dc">
+        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/classes-5092b3e9fabe963aba638f0e75923cf1eec1def9.jar" />
+    </item>
+    <item
+        jar="/Users/Andrew/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-lang3/3.2.1/66f13681add50ca9e4546ffabafaaac7645db3cf/commons-lang3-3.2.1.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="66f13681add50ca9e4546ffabafaaac7645db3cf">
+        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/commons-lang3-3.2.1-ade862181fc7cde77da0aad2cf1b2082d20f8a88.jar" />
+    </item>
+    <item
+        jar="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0 rc2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/build/intermediates/pre-dexed/debug/classes-ca655fc863a1cae04b273932398a29dcd926d4b7.jar" />
     </item>
 
 </items>
