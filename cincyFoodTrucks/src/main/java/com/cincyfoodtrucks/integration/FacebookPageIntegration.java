@@ -11,12 +11,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.cincyfoodtrucks.R;
 import com.cincyfoodtrucks.dao.FacebookPageSQLite;
 import com.cincyfoodtrucks.dao.NetworkFacebookPage;
 import com.cincyfoodtrucks.dto.FacebookPage;
+import com.cincyfoodtrucks.dto.FacebookPageContainer;
 import com.cincyfoodtrucks.dto.TruckOwner;
 import com.cincyfoodtrucks.utilities.NewsFeedItem;
 import com.facebook.FacebookRequestError;
@@ -29,11 +33,19 @@ import com.facebook.HttpMethod;
 
 
 public class FacebookPageIntegration {
-Context context;
+	Context context;
+	SharedPreferences preferences;
 
+	public FacebookPageIntegration(Context _context){
+		context = _context;
+		preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-public FacebookPageIntegration(Context _context){
-	context = _context;
+}
+
+	public void setPreference(String key, String value){
+	SharedPreferences.Editor editor = preferences.edit();
+	editor.putString(key, value);
+	editor.apply();
 }
 
 
@@ -54,6 +66,8 @@ public boolean addFacebookPage(FacebookPage page) throws InterruptedException{
 }
 
 
+
+
 public ArrayList<NewsFeedItem> getFacebookPosts(FacebookPage page, TruckOwner truck) throws InterruptedException{
 	GetFacebookPosts gfp = new GetFacebookPosts(page, truck);
 	Thread t = new Thread(gfp);
@@ -62,7 +76,14 @@ public ArrayList<NewsFeedItem> getFacebookPosts(FacebookPage page, TruckOwner tr
 	return gfp.getItems();
 	
 }
+public ArrayList<FacebookPageContainer> getFacebookPages(String accessToken) throws InterruptedException {
+	GetFacebookPages gfp = new GetFacebookPages(accessToken);
+	Thread t = new Thread(gfp);
+	t.start();
+	t.join();
+	return gfp.pages;
 
+}
 private class GetFacebookData implements Runnable{
 	NetworkFacebookPage networkFacebookPage;
 	Context context;
@@ -193,8 +214,69 @@ private class GetFacebookPosts implements Runnable{
 
 //	    Request.executeAndWait(request);
 		GraphRequest.executeAndWait(request);
-//		GraphRequest.executeAndWait(request);
-//		request.executeAndWait();
+
 	}
 }
+
+	private class GetFacebookPages implements Runnable{
+		private  String accessToken;
+		public ArrayList<FacebookPageContainer> pages;
+
+		public  GetFacebookPages(String _accesToken){
+			pages = new ArrayList<>();
+			accessToken = _accesToken;
+
+		}
+		@Override
+		public void run() {
+			Bundle params = new Bundle();
+			params.putString("access_token", accessToken);
+			params.putString("fields", "id");
+			GraphRequest request = new GraphRequest(null, "me", params, HttpMethod.GET, new GraphRequest.Callback() {
+				public void onCompleted(GraphResponse response) {
+					FacebookRequestError error = response.getError();
+					if(error!=null){
+						Log.e("Error", error.getErrorMessage());
+					}else{
+						JSONObject values = response.getJSONObject();
+						try {
+							//so I have to get the ID first
+							String id = values.getString("id");
+							Bundle p = new Bundle();
+							p.putString("access_token", accessToken);
+							//yay nest the graph requests
+							//once we get the id we can get their pages
+							GraphRequest pagesRequest = new GraphRequest(null, "/"+id+"/accounts", p, HttpMethod.GET, new GraphRequest.Callback() {
+								public void onCompleted(GraphResponse response) {
+									FacebookRequestError error = response.getError();
+									if(error!=null){
+										Log.e("Error", error.getErrorMessage());
+									}else{
+										//object.asMap();
+										JSONObject values = response.getJSONObject();
+										JSONArray array = null;
+										try {
+											array = values.getJSONArray("data");
+											for (int i =0; i < array.length(); i++){
+												//consolidation *high pitched voice* motha fucka!
+												pages.add(new FacebookPageContainer(array.getJSONObject(i).getString("name"), array.getJSONObject(i).getString("access_token"), array.getJSONObject(i).getString("id")));
+											}
+										} catch (JSONException e) {
+											e.printStackTrace();
+										}
+
+									}
+								}});
+							GraphRequest.executeAndWait(pagesRequest);
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+
+					}
+				}
+			});
+			GraphRequest.executeAndWait(request);
+		}
+	}
 }

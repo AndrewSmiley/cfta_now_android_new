@@ -63,10 +63,10 @@ public class NetworkFacebookPage implements INetworkFacebookPage {
 
 		for (String line : lines) {
 			String[] menuInfo = line.split(";");
-			FacebookPage page = new FacebookPage();
-			page.setId(Integer.parseInt(menuInfo[0]));
-			page.setPageName(menuInfo[1]);
-			page.setTruckID(Integer.parseInt(menuInfo[2]));
+			FacebookPage page = new FacebookPage(Integer.parseInt(menuInfo[0]), menuInfo[1], Integer.parseInt(menuInfo[2]));
+//			page.setId(Integer.parseInt(menuInfo[0]));
+//			page.setPageName(menuInfo[1]);
+//			page.setTruckID(Integer.parseInt(menuInfo[2]));
 			facebookPages.add(page);
 		}
 

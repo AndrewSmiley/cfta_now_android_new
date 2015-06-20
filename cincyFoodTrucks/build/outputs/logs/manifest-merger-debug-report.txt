@@ -238,15 +238,21 @@ ADDED from AndroidManifest.xml:174:9
 		ADDED from AndroidManifest.xml:176:13
 	android:name
 		ADDED from AndroidManifest.xml:175:13
-activity#com.google.android.gms.ads.AdActivity
+activity#com.cincyfoodtrucks.ui.SelectFacebookPageActivity
 ADDED from AndroidManifest.xml:178:9
+	android:label
+		ADDED from AndroidManifest.xml:180:13
+	android:name
+		ADDED from AndroidManifest.xml:179:13
+activity#com.google.android.gms.ads.AdActivity
+ADDED from AndroidManifest.xml:182:9
 	android:configChanges
-		ADDED from AndroidManifest.xml:179:1
+		ADDED from AndroidManifest.xml:183:1
 	android:name
-		ADDED from AndroidManifest.xml:178:19
+		ADDED from AndroidManifest.xml:182:19
 activity#com.facebook.FacebookActivity
-ADDED from AndroidManifest.xml:180:9
+ADDED from AndroidManifest.xml:184:9
 	android:theme
-		ADDED from AndroidManifest.xml:182:13
+		ADDED from AndroidManifest.xml:186:13
 	android:name
-		ADDED from AndroidManifest.xml:181:13
+		ADDED from AndroidManifest.xml:185:13

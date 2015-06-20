@@ -24,10 +24,12 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.maps.model.LatLng;
 
+import android.annotation.TargetApi;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -240,6 +242,7 @@ public class ViewAllTrucksActivity extends BaseActionMenuActivity {
 			final View anchor = txtTitle;
 	          vi.setOnClickListener(new View.OnClickListener() {
 				
+				@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 				@Override
 				public void onClick(View arg0) {
 					//create the popup menu

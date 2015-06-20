@@ -61,8 +61,7 @@ public class NewsFeedActivity extends BaseActionMenuActivity {
 				
 			}
 			
-			adapter = new NewsFeedAdapter(newsFeedItems, getApplicationContext());
-			lv.setAdapter(adapter);
+
 //			/* make the API call */
 //			new Request(
 //			    session,
@@ -76,7 +75,8 @@ public class NewsFeedActivity extends BaseActionMenuActivity {
 //			    }
 //			).executeAsync();
 		}
-		
+		adapter = new NewsFeedAdapter(newsFeedItems, getApplicationContext());
+		lv.setAdapter(adapter);
 		
 //		Toast.makeText(getApplicationContext(), "Test!", Toast.LENGTH_LONG).show();
 		
@@ -115,19 +115,50 @@ public class NewsFeedActivity extends BaseActionMenuActivity {
 		}
 
 		@Override
-		public View getView(int position, View arg1, ViewGroup arg2) {
+		public View getView(int position, View convertView, ViewGroup parent) {
+			/*
+			// TODO Auto-generated method stub
+
+        TextView tvUsername, tvTitle;
+
+        if (convertView == null) {
+            LayoutInflater layoutInflator = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            convertView = layoutInflator.inflate(R.layout.custom_listview_home, parent, false);
+        }
+
+
+            map = membersList.get(position);
+
+            tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
+            tvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+
+            tvUsername.setText(map.get(FragmentHome.USERNAME));
+            tvTitle.setText(map.get(FragmentHome.TITLE));
+
+        return convertView;
+			 */
 			NewsFeedItem item = items.get(position);
-			View vi=arg1;
-			if(arg1 == null){
-				 vi = inflater.inflate(R.layout.newsfeed_row, null);
-				 TextView txtTruckName=(TextView) vi.findViewById(R.id.txtNewsFeedTruckName);
-				 TextView txtContext = (TextView) vi.findViewById(R.id.newsFeedPostContent);
-				 txtTruckName.setText(item.getTruck().getTruckName());
-				 txtContext.setText(item.getContent());
+			View vi=convertView;
+			if(convertView== null){
+				LayoutInflater layoutInflator = (LayoutInflater) context
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+				convertView = layoutInflator.inflate(R.layout.newsfeed_row, parent, false);
+//				 vi = inflater.inflate(R.layout.newsfeed_row, null);
+//				 TextView txtTruckName=(TextView) vi.findViewById(R.id.txtNewsFeedTruckName);
+//				 TextView txtContext = (TextView) vi.findViewById(R.id.newsFeedPostContent);
+//				 txtTruckName.setText(item.getTruck().getTruckName());
+//				 txtContext.setText(item.getContent());
 			}
+				TextView txtTruckName=(TextView) convertView.findViewById(R.id.txtNewsFeedTruckName);
+				TextView txtContext = (TextView) convertView.findViewById(R.id.newsFeedPostContent);
+				txtTruckName.setText(item.getTruck().getTruckName());
+				txtContext.setText(item.getContent());
 			
 			// TODO Auto-generated method stub
-			return vi;
+			return convertView;
 		}
 		
 	}

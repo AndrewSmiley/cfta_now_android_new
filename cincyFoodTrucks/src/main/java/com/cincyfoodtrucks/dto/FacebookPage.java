@@ -12,6 +12,11 @@ public class FacebookPage {
 	public void setPageName(String pageName) {
 		this.pageName = pageName;
 	}
+	public FacebookPage(int _id, String _pageName, int _truckID){
+		id = _id;
+		pageName = _pageName;
+		truckID = _truckID;
+	}
 	/**
 	 * @return the truckID
 	 */

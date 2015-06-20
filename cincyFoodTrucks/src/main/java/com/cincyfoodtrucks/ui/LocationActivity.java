@@ -71,7 +71,7 @@ public class LocationActivity extends BaseActionMenuActivity {
     	
 		//handle cases for login
     	if(userIntegration.isLoggedIn(thisUsername, thisPassword )){
-    	
+
     		//add the username and password to Shared preferences
     		userIntegration.updateUsernameAndPasswordInPrefs(thisUsername, password.getText().toString());
     		//redirect to the menu

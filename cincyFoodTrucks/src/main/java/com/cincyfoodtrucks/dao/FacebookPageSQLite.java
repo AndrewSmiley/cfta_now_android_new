@@ -24,15 +24,13 @@ public class FacebookPageSQLite extends SQLiteOpenHelper implements IFacebookPag
 
 	@Override
 	public void addFacebookPage(FacebookPage page) {
-		ContentValues content  = new ContentValues();
-		content.put(COL_ID, page.getId());
-		content.put(COL_FACEBOOK_PAGE, page.getPageName());
-		content.put(COL_TRUCK_ID, page.getTruckID());
-		
-
-		getWritableDatabase().replace(SQLITE_TABLE_NAME, null, content);
-		// TODO Auto-generated method stub
-//		return false;
+//		if (pageExistsForTruck( page.getTruckID())) {
+			ContentValues content  = new ContentValues();
+			content.put(COL_ID, page.getId());
+			content.put(COL_FACEBOOK_PAGE, page.getPageName());
+			content.put(COL_TRUCK_ID, page.getTruckID());
+			getWritableDatabase().replace(SQLITE_TABLE_NAME, null, content);
+//		}
 	}
 
 	@Override
@@ -48,10 +46,10 @@ public class FacebookPageSQLite extends SQLiteOpenHelper implements IFacebookPag
 			cursor.moveToFirst();
 			while(!cursor.isAfterLast())
 			{
-				FacebookPage page=new FacebookPage();
-				page.setId(cursor.getInt(0));
-				page.setPageName(cursor.getString(1));
-				page.setTruckID(cursor.getInt(2));
+				FacebookPage page=new FacebookPage(cursor.getInt(0),cursor.getString(1),cursor.getInt(2));
+//				page.setId();
+//				page.setPageName(cursor.getString(1));
+//				page.setTruckID(cursor.getInt(2));
 				items.add(page);
 				cursor.moveToNext();
 				
@@ -73,6 +71,14 @@ public class FacebookPageSQLite extends SQLiteOpenHelper implements IFacebookPag
 	public void onUpgrade(SQLiteDatabase arg0, int arg1, int arg2) {
 		// TODO Auto-generated method stub
 		//i don't think we need to do anything here?? 
+
+	}
+
+	public boolean pageExistsForTruck(int truckID){
+		String query = SELECT_ALL+" where "+COL_TRUCK_ID+"="+truckID;
+		Cursor cursor = getReadableDatabase().rawQuery(query, null);
+		return cursor.getCount() > 0;
+
 
 	}
 

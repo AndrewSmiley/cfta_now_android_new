@@ -13,7 +13,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -31,6 +33,7 @@ import com.cincyfoodtrucks.integration.UserIntegration;
 //import com.facebook.android.AsyncFacebookRunner;
 //import com.facebook.android.Facebook;
 //import com.facebook.model.GraphUser;
+import com.facebook.AccessToken;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 
@@ -45,6 +48,7 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 	ITruckIntegration truckIntegrator;
 	String provider;
 	IUserIntegration userIntegrator;
+	CheckBox postToFacebookChkBox;
 	
 	 // Your Facebook APP ID
     private static String APP_ID = "662026153876150"; // Replace your App ID here
@@ -70,10 +74,12 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 		provider = locationManager.getBestProvider(criteria, false);
 		
 		truckIntegrator = new TruckIntegration(this);
-	
+
 		
 		super.onCreate(savedInstanceState);
 		setContentView(com.cincyfoodtrucks.R.layout.activity_login);
+
+		postToFacebookChkBox = (CheckBox) findViewById(R.id.postToFacebookChkBox);
 	}
 
 	
@@ -87,31 +93,33 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
      */
     public void onCheckInClicked(View v) 
     {
-    	locationTime = (TimePicker)findViewById(R.id.LeavingTimePicker);
-    	locationTime.clearFocus();
-    	int hour  = locationTime.getCurrentHour();
-    	int minute = locationTime.getCurrentMinute();
-    	userIntegrator = new UserIntegration(this);
-    	Location latLng = locationManager.getLastKnownLocation(provider);
-    	User user = userIntegrator.getUserFromSharedPrefs();
-    	
-    	//get the current time
-    	Date now =new Date();
-    	//create timestamp from the time they will be leaving
-    	@SuppressWarnings("deprecation")
-		@Deprecated
-    	Timestamp timestamp = new Timestamp(now.getYear(), now.getMonth(), now.getDate(), hour, minute, 0, 0);
-    	
+
     	//Newly discovered bug- This thing needs to be in a try-catch as the app will crash if the location cannot be determined and we attempt to update location
     	try {
+			//do some shit motha fucka!
+			if (postToFacebookChkBox.isChecked()){
+				Log.d("Message", "It's checked!");
+				//ok so first, check to see if there's a facebook session or not
+				AccessToken token = AccessToken.getCurrentAccessToken();
+				//ok, so if the access token isn't null, then we're logged in
+				if (token != null){
+
+				}else{
+					Intent i = new Intent(this, ConnectFacebookActivity.class);
+					startActivityForResult(i, 1);
+				}
+			}
     		//send the data in a new thread
+			//comment this out for right now
+			/*
 			truckIntegrator.executeSendTruckDataAsyncTask(this, String.valueOf(latLng.getLongitude()), String.valueOf(latLng.getLatitude()), String.valueOf(timestamp.getTime()), user.getTruckID());
 			Toast.makeText(this, "Location Updated!", Toast.LENGTH_LONG).show();
 	    	//send 'em back to the main page to see their updated location
 	    	Intent submitIntent = new Intent(this, MainActivity.class);
-	        
+
 	        // start that activity.
 	       startActivity(submitIntent);
+	       */
 		} catch (Exception e) {
 			Toast.makeText(this, this.getString(R.string.strCannotAcquireLocation), Toast.LENGTH_LONG).show();
 			
@@ -231,22 +239,49 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 	
 	
 	
-//	@Override
-//	  public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//	      super.onActivityResult(requestCode, resultCode, data);
-//	      Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-////	      Toast.makeText(getApplicationContext(), "It worked!", Toast.LENGTH_LONG).show();
-//	      Session session = Session.getActiveSession();
-//	      if (session != null && session.isOpened()) {
-//	    	 Toast.makeText(this, "Facebook Login Successful", Toast.LENGTH_SHORT).show();
-//
-//
-//	      } else {
-//	    	  //handle action if they are not logged in
-//
-//
-//
-//	      }
-//	  }
+	@Override
+	  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 1) {
+			if(resultCode == RESULT_OK){
+				//this is where we'll nigger rig the shit for the facebook and the twitter
+				if (data.getStringExtra(ConnectFacebookActivity.FACEBOOK_LOGGED_IN_KEY) != null){
+					Toast.makeText(getApplicationContext(), "It works! You're logged into facebook motherfucker", Toast.LENGTH_LONG).show();
+
+//					doWork();
+				}
+			}
+			if (resultCode == RESULT_CANCELED) {
+				//Write your code if there's no result
+			}
+		}
+
+	  }
+
+	public void doWork(){
+		//send the data in a new thread
+		//comment this out for right now
+		locationTime = (TimePicker)findViewById(R.id.LeavingTimePicker);
+		locationTime.clearFocus();
+		int hour  = locationTime.getCurrentHour();
+		int minute = locationTime.getCurrentMinute();
+		userIntegrator = new UserIntegration(this);
+		Location latLng = locationManager.getLastKnownLocation(provider);
+		User user = userIntegrator.getUserFromSharedPrefs();
+
+		//get the current time
+		Date now =new Date();
+		//create timestamp from the time they will be leaving
+		@SuppressWarnings("deprecation")
+		@Deprecated
+		Timestamp timestamp = new Timestamp(now.getYear(), now.getMonth(), now.getDate(), hour, minute, 0, 0);
+			truckIntegrator.executeSendTruckDataAsyncTask(this, String.valueOf(latLng.getLongitude()), String.valueOf(latLng.getLatitude()), String.valueOf(timestamp.getTime()), user.getTruckID());
+			Toast.makeText(this, "Location Updated!", Toast.LENGTH_LONG).show();
+	    	//send 'em back to the main page to see their updated location
+	    	Intent submitIntent = new Intent(this, MainActivity.class);
+
+	        // start that activity.
+	       startActivity(submitIntent);
+
+	}
 
 }

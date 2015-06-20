@@ -288,6 +288,8 @@
     <!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="facebook_app_id">696538993808289</string>
+    <string name="facebook_page_access_token">FACEBOOK_PAGE_ACCESS_TOKEN</string>
+    <string name="facebook_page_name">FACEBOOK_PAGE_NAME</string>
     <string name="hello_world">Hello world!</string>
     <string name="lblCurrentPassword">Current Password</string>
     <string name="lblIMenutemImage">Menu Item Image</string>

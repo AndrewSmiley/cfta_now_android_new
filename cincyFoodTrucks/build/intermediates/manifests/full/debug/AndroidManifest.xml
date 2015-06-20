@@ -177,6 +177,10 @@
             android:label="@string/CFTAN" >
         </activity>
         <activity
+            android:name="com.cincyfoodtrucks.ui.SelectFacebookPageActivity"
+            android:label="@string/CFTAN" >
+        </activity>
+        <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
         <activity
