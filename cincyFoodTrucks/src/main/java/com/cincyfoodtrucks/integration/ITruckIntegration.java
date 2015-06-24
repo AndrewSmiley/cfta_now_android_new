@@ -106,10 +106,10 @@ public interface ITruckIntegration {
 	
 	/**
 	 * Method to get the human readable hours of the truck
-	 * @param truck The truck we wish to get the human readable hours for
+	 * @param timestamp the timestamp
 	 * @return String a string containing the converted human readable hours
 	 */
-	public String getHumanReadableTruckHours(TruckOwner truck);
+	public String getHumanReadableTruckHours(long timestamp);
 	
 
 }

@@ -472,10 +472,9 @@ int id action_bar_spinner 0x7f0c0001
 int id action_bar_subtitle 0x7f0c0033
 int id action_bar_title 0x7f0c0032
 int id action_change_password 0x7f0c00b7
-int id action_connect_facebook 0x7f0c00bc
 int id action_contact 0x7f0c00b8
 int id action_context_bar 0x7f0c0046
-int id action_login 0x7f0c00bd
+int id action_login 0x7f0c00bc
 int id action_menu 0x7f0c00b0
 int id action_menu_divider 0x7f0c0002
 int id action_menu_presenter 0x7f0c0003

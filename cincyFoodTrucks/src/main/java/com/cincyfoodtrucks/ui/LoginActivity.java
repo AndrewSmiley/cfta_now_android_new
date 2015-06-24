@@ -1,6 +1,7 @@
 package com.cincyfoodtrucks.ui;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.cincyfoodtrucks.R;
 import com.cincyfoodtrucks.dto.TruckOwner;
 import com.cincyfoodtrucks.dto.User;
+import com.cincyfoodtrucks.integration.FacebookPageIntegration;
 import com.cincyfoodtrucks.integration.ITruckIntegration;
 import com.cincyfoodtrucks.integration.IUserIntegration;
 import com.cincyfoodtrucks.integration.TruckIntegration;
@@ -34,8 +36,12 @@ import com.cincyfoodtrucks.integration.UserIntegration;
 //import com.facebook.android.Facebook;
 //import com.facebook.model.GraphUser;
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenSource;
+import com.facebook.FacebookSdk;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.internal.fb;
+import com.google.android.gms.maps.model.LatLng;
 
 
 public class LoginActivity extends BaseActionMenuActivity  implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener{
@@ -49,6 +55,7 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 	String provider;
 	IUserIntegration userIntegrator;
 	CheckBox postToFacebookChkBox;
+	FacebookPageIntegration fbIntegrator;
 	
 	 // Your Facebook APP ID
     private static String APP_ID = "662026153876150"; // Replace your App ID here
@@ -72,6 +79,7 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		Criteria criteria = new Criteria();
 		provider = locationManager.getBestProvider(criteria, false);
+		fbIntegrator = new FacebookPageIntegration(getApplicationContext());
 		
 		truckIntegrator = new TruckIntegration(this);
 
@@ -80,6 +88,10 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 		setContentView(com.cincyfoodtrucks.R.layout.activity_login);
 
 		postToFacebookChkBox = (CheckBox) findViewById(R.id.postToFacebookChkBox);
+
+		if (!FacebookSdk.isInitialized()) {
+			FacebookSdk.sdkInitialize(getApplicationContext());
+		}
 	}
 
 	
@@ -100,11 +112,13 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 			if (postToFacebookChkBox.isChecked()){
 				Log.d("Message", "It's checked!");
 				//ok so first, check to see if there's a facebook session or not
-				AccessToken token = AccessToken.getCurrentAccessToken();
-				//ok, so if the access token isn't null, then we're logged in
-				if (token != null){
 
+				//ok, so if the access token isn't null, then we're logged in
+				if (AccessToken.getCurrentAccessToken() != null){
+					//if they're already logged into facebook, we can just do the work
+					doWork(true);
 				}else{
+					//otherwise send them to the login flow
 					Intent i = new Intent(this, ConnectFacebookActivity.class);
 					startActivityForResult(i, 1);
 				}
@@ -246,7 +260,7 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 				//this is where we'll nigger rig the shit for the facebook and the twitter
 				if (data.getStringExtra(ConnectFacebookActivity.FACEBOOK_LOGGED_IN_KEY) != null){
 					Toast.makeText(getApplicationContext(), "It works! You're logged into facebook motherfucker", Toast.LENGTH_LONG).show();
-
+//
 //					doWork();
 				}
 			}
@@ -257,7 +271,7 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 
 	  }
 
-	public void doWork(){
+	public void doWork(boolean postToFB){
 		//send the data in a new thread
 		//comment this out for right now
 		locationTime = (TimePicker)findViewById(R.id.LeavingTimePicker);
@@ -267,21 +281,44 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 		userIntegrator = new UserIntegration(this);
 		Location latLng = locationManager.getLastKnownLocation(provider);
 		User user = userIntegrator.getUserFromSharedPrefs();
-
+		LatLng lng = new LatLng(latLng.getLatitude(), latLng.getLongitude());
 		//get the current time
 		Date now =new Date();
 		//create timestamp from the time they will be leaving
 		@SuppressWarnings("deprecation")
 		@Deprecated
 		Timestamp timestamp = new Timestamp(now.getYear(), now.getMonth(), now.getDate(), hour, minute, 0, 0);
-			truckIntegrator.executeSendTruckDataAsyncTask(this, String.valueOf(latLng.getLongitude()), String.valueOf(latLng.getLatitude()), String.valueOf(timestamp.getTime()), user.getTruckID());
-			Toast.makeText(this, "Location Updated!", Toast.LENGTH_LONG).show();
+		if (postToFB) {
+			postToFacebookPage(timestamp, truckIntegrator.getTruckByTruckID(userIntegrator.getUserFromSharedPrefs().getTruckID()), lng);
+		}
+//			truckIntegrator.executeSendTruckDataAsyncTask(this, String.valueOf(latLng.getLongitude()), String.valueOf(latLng.getLatitude()), String.valueOf(timestamp.getTime()), user.getTruckID());
+//			Toast.makeText(this, "Location Updated!", Toast.LENGTH_LONG).show();
 	    	//send 'em back to the main page to see their updated location
-	    	Intent submitIntent = new Intent(this, MainActivity.class);
-
-	        // start that activity.
-	       startActivity(submitIntent);
+//	    	Intent submitIntent = new Intent(this, MainActivity.class);
+//
+//	        // start that activity.
+//	       startActivity(submitIntent);
 
 	}
 
+
+	public void postToFacebookPage(Timestamp ts, TruckOwner truck, LatLng ltLng){
+		AccessToken token = new AccessToken(fbIntegrator.getPreference(getResources().getString(R.string.facebook_page_access_token)), AccessToken.getCurrentAccessToken().getApplicationId(),
+				AccessToken.getCurrentAccessToken().getUserId(), Arrays.asList("publish_actions", "manage_pages", "publish_pages"), null, AccessTokenSource.FACEBOOK_APPLICATION_SERVICE,
+				AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh());
+		AccessToken.setCurrentAccessToken(token);
+
+
+		try {
+
+			boolean result = fbIntegrator.postToFacebook(fbIntegrator.createUpdateMessage(ts, truck.getTruckName(), ltLng), AccessToken.getCurrentAccessToken());
+			//ternaries mother fuckers!
+			Toast.makeText(getApplicationContext(), result?"Posted to Facebook Successfully!":"Could not post to Facebook at this time.", Toast.LENGTH_LONG).show();
+		} catch (InterruptedException e) {
+			Toast.makeText(getApplicationContext(), "An error occurred posting to Facebook", Toast.LENGTH_LONG).show();
+//			e.printStackTrace();
+		}
+
+
+	}
 }

@@ -153,15 +153,16 @@ public class BaseActionMenuActivity extends Activity {
 			return true;
 
 			//handle case for rate clicked
-		}else if (item.getItemId() == R.id.action_connect_facebook)
-		{
-//			this.startActivityForResult();
-			Intent intent = new Intent(this, ConnectFacebookActivity.class);
-			startActivity(intent);
-			return true;
-
-			//handle case for rate clicked
 		}
+//		else if (item.getItemId() == R.id.action_connect_facebook)
+//		{
+////			this.startActivityForResult();
+//			Intent intent = new Intent(this, ConnectFacebookActivity.class);
+//			startActivity(intent);
+//			return true;
+//
+//			//handle case for rate clicked
+//		}
 		else if(item.getItemId() == R.id.action_rate_us)
 		{
 			final String appName = "com.cincyfoodtrucks&hl=en";

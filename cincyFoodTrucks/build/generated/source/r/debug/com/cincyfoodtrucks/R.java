@@ -1674,10 +1674,9 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f0c0033;
         public static final int action_bar_title=0x7f0c0032;
         public static final int action_change_password=0x7f0c00b7;
-        public static final int action_connect_facebook=0x7f0c00bc;
         public static final int action_contact=0x7f0c00b8;
         public static final int action_context_bar=0x7f0c0046;
-        public static final int action_login=0x7f0c00bd;
+        public static final int action_login=0x7f0c00bc;
         public static final int action_menu=0x7f0c00b0;
         public static final int action_menu_divider=0x7f0c0002;
         public static final int action_menu_presenter=0x7f0c0003;

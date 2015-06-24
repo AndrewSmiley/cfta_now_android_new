@@ -61,6 +61,7 @@
         android:layout_below="@+id/postToFacebookChkBox"
         android:layout_alignLeft="@+id/postToFacebookChkBox"
         android:layout_alignStart="@+id/postToFacebookChkBox"
-        android:checked="false" />
+        android:checked="false"
+        android:visibility="invisible" />
 
 </RelativeLayout><!-- From: file:/Users/Andrew/StudioProjects/CincyFoodTrucks/cincyFoodTrucks/src/main/res/layout/activity_login.xml -->

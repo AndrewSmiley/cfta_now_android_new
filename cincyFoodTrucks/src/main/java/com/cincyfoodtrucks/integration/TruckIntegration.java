@@ -48,9 +48,9 @@ public class TruckIntegration implements ITruckIntegration  {
 	
 
 @Override
-public String getHumanReadableTruckHours(TruckOwner truck) {
+public String getHumanReadableTruckHours(long timestamp) {
 	Calendar cal1 = Calendar.getInstance();
-	cal1.setTimeInMillis(truck.getHoursAtLocation());
+	cal1.setTimeInMillis(timestamp);
 	SimpleDateFormat dateFormat = new SimpleDateFormat(
 	                                "MM/dd hh:mm a");
 	 String dateforrow = dateFormat.format(cal1.getTime());

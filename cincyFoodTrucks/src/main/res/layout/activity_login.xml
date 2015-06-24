@@ -61,6 +61,7 @@
         android:layout_below="@+id/postToFacebookChkBox"
         android:layout_alignLeft="@+id/postToFacebookChkBox"
         android:layout_alignStart="@+id/postToFacebookChkBox"
-        android:checked="false" />
+        android:checked="false"
+        android:visibility="invisible" />
 
 </RelativeLayout>

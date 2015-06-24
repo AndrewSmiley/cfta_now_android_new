@@ -62,7 +62,7 @@ public class SelectFacebookPageActivity extends BaseActionMenuActivity {
             fbIntegration.getFacebookData();
 
             //now add it to shared preferences so we can save it
-            fbIntegration.setPreference(getResources().getString(R.string.facebook_page_name), cont.getPageName());
+            fbIntegration.setPreference(getResources().getString(R.string.facebook_page_name), cont.getId());
             fbIntegration.setPreference(getResources().getString(R.string.facebook_page_access_token), cont.getAccessToken());
             Intent resultData = new Intent();
             resultData.putExtra(ConnectFacebookActivity.FACEBOOK_SELECT_PAGE_KEY, ConnectFacebookActivity.FACEBOOK_SELECT_PAGE_VALUE);

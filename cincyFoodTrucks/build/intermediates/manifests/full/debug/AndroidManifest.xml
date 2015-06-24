@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cincyfoodtrucks"
-    android:versionCode="13"
-    android:versionName="4.2" > <!-- Specify the correct minSDK and targetSDK versions. -->
+    android:versionCode="14"
+    android:versionName="4.3" > <!-- Specify the correct minSDK and targetSDK versions. -->
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="21" />

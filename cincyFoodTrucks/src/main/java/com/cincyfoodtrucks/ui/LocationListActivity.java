@@ -244,7 +244,7 @@ public class LocationListActivity extends BaseActionMenuActivity {
 			if(truck.truck.getHoursAtLocation() == 0){
 				 txtHours.setText(getResources().getString(R.string.strCurrentlyClosed));
 			}else{
-	        txtHours.setText(getResources().getString(R.string.strTruckLeavingTime)+" "+truckIntegration.getHumanReadableTruckHours(truck.truck));  
+	        txtHours.setText(getResources().getString(R.string.strTruckLeavingTime)+" "+truckIntegration.getHumanReadableTruckHours(truck.truck.getHoursAtLocation()));
 			}
 			final String truckName = txtTitle.getText().toString();
 			
