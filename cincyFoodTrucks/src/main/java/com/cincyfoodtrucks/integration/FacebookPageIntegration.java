@@ -35,7 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 //import com.facebook.model.GraphObject;
 
 
-public class FacebookPageIntegration {
+public class FacebookPageIntegration implements IFacebookPageIntegration {
     Context context;
     SharedPreferences preferences;
 

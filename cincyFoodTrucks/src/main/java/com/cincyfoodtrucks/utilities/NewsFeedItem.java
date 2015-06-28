@@ -12,6 +12,15 @@ public class NewsFeedItem {
 	private TruckOwner truck;
 	private  String content;
 	private Date date;
+	public NewsFeedItem(){
+
+	}
+
+	public NewsFeedItem(TruckOwner _owner, String _content, Date _date){
+		truck = _owner;
+		content = _content;
+		date = _date;
+	}
 	/**
 	 * @return the truck
 	 */

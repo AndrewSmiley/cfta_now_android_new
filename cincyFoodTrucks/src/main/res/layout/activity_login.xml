@@ -57,11 +57,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Post to Twitter"
-        android:id="@+id/checkBox2"
+        android:id="@+id/postToTwitterChkBox"
         android:layout_below="@+id/postToFacebookChkBox"
         android:layout_alignLeft="@+id/postToFacebookChkBox"
         android:layout_alignStart="@+id/postToFacebookChkBox"
         android:checked="false"
-        android:visibility="invisible" />
+        android:visibility="visible" />
 
 </RelativeLayout>

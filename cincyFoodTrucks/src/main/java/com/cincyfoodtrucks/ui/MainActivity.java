@@ -1,5 +1,8 @@
 package com.cincyfoodtrucks.ui;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +51,11 @@ public class MainActivity extends BaseActionMenuActivity implements LocationList
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener,
 		OnMarkerClickListener {
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "HehIAkEuo6yzLBuPfygN5GQdl";
+    private static final String TWITTER_SECRET = "qCFcYGMDUj7suOJIVZTfuqo8wOsm5HzcMatb1OO8R6obvTXC4w";
+
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	private static final int REFRESH_INTERVAL = 20;
 	private static final int MILLISECONDS_PER_SECOND = 1000;
@@ -93,6 +101,8 @@ public class MainActivity extends BaseActionMenuActivity implements LocationList
 
 			truckIntegrator = new TruckIntegration(this);
 			super.onCreate(savedInstanceState);
+			TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+			Fabric.with(this, new Twitter(authConfig));
 			setContentView(R.layout.activity_main);
 			
 			 // Create an ad.

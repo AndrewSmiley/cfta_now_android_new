@@ -1,8 +1,13 @@
 package com.cincyfoodtrucks.ui;
 
+import java.lang.reflect.Array;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -16,17 +21,20 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.cincyfoodtrucks.R;
 import com.cincyfoodtrucks.dto.TruckOwner;
+import com.cincyfoodtrucks.dto.TwitterUser;
 import com.cincyfoodtrucks.dto.User;
 import com.cincyfoodtrucks.integration.FacebookPageIntegration;
 import com.cincyfoodtrucks.integration.ITruckIntegration;
 import com.cincyfoodtrucks.integration.IUserIntegration;
 import com.cincyfoodtrucks.integration.TruckIntegration;
+import com.cincyfoodtrucks.integration.TwitterIntegration;
 import com.cincyfoodtrucks.integration.UserIntegration;
 //import com.facebook.Request;
 //import com.facebook.Response;
@@ -35,6 +43,7 @@ import com.cincyfoodtrucks.integration.UserIntegration;
 //import com.facebook.android.AsyncFacebookRunner;
 //import com.facebook.android.Facebook;
 //import com.facebook.model.GraphUser;
+import com.cincyfoodtrucks.utilities.NewsFeedItem;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenSource;
 import com.facebook.FacebookSdk;
@@ -42,6 +51,15 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.internal.fb;
 import com.google.android.gms.maps.model.LatLng;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.services.StatusesService;
+import com.twitter.sdk.android.tweetui.UserTimeline;
 
 
 public class LoginActivity extends BaseActionMenuActivity  implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener{
@@ -55,11 +73,13 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 	String provider;
 	IUserIntegration userIntegrator;
 	CheckBox postToFacebookChkBox;
+	CheckBox postToTwitterChkBox;
 	FacebookPageIntegration fbIntegrator;
-	
+	Button checkInBtn;
+	TwitterIntegration twitterIntegrator;
 	 // Your Facebook APP ID
     private static String APP_ID = "662026153876150"; // Replace your App ID here
- 
+
     // Instance of Facebook Class
 //    private Facebook facebook;
 //    private AsyncFacebookRunner mAsyncRunner;
@@ -80,15 +100,14 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 		Criteria criteria = new Criteria();
 		provider = locationManager.getBestProvider(criteria, false);
 		fbIntegrator = new FacebookPageIntegration(getApplicationContext());
-		
 		truckIntegrator = new TruckIntegration(this);
-
-		
+		twitterIntegrator = new TwitterIntegration(getApplicationContext());
 		super.onCreate(savedInstanceState);
 		setContentView(com.cincyfoodtrucks.R.layout.activity_login);
-
 		postToFacebookChkBox = (CheckBox) findViewById(R.id.postToFacebookChkBox);
-
+		postToTwitterChkBox = (CheckBox) findViewById(R.id.postToTwitterChkBox);
+		checkInBtn = (Button) findViewById(R.id.btnLogin);
+		userIntegrator = new UserIntegration(getApplicationContext());
 		if (!FacebookSdk.isInitialized()) {
 			FacebookSdk.sdkInitialize(getApplicationContext());
 		}
@@ -109,33 +128,37 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
     	//Newly discovered bug- This thing needs to be in a try-catch as the app will crash if the location cannot be determined and we attempt to update location
     	try {
 			//do some shit motha fucka!
-			if (postToFacebookChkBox.isChecked()){
-				Log.d("Message", "It's checked!");
-				//ok so first, check to see if there's a facebook session or not
+			boolean fbPost, twitterPost;
+			fbPost = postToFacebookChkBox.isChecked();
+			twitterPost = postToTwitterChkBox.isChecked();
+			if (twitterPost) {
+				//hoping this is the right code
+				if (TwitterCore.getInstance().getSessionManager().getActiveSession() == null) {
+					Intent i = new Intent(this, ConnectTwitterActivity.class);
+					startActivity(i);
+					return;
+				}
 
+			}
+
+
+			if (fbPost) {
+				//ok so first, check to see if there's a facebook session or not
 				//ok, so if the access token isn't null, then we're logged in
-				if (AccessToken.getCurrentAccessToken() != null){
+				String accessTokenStr = fbIntegrator.getPreference(getResources().getString(R.string.facebook_page_access_token));
+				if (AccessToken.getCurrentAccessToken() == null || accessTokenStr == null || accessTokenStr.equalsIgnoreCase("")) {
 					//if they're already logged into facebook, we can just do the work
-					doWork(true);
-				}else{
 					//otherwise send them to the login flow
 					Intent i = new Intent(this, ConnectFacebookActivity.class);
 					startActivityForResult(i, 1);
+					return;
+
 				}
 			}
-    		//send the data in a new thread
-			//comment this out for right now
-			/*
-			truckIntegrator.executeSendTruckDataAsyncTask(this, String.valueOf(latLng.getLongitude()), String.valueOf(latLng.getLatitude()), String.valueOf(timestamp.getTime()), user.getTruckID());
-			Toast.makeText(this, "Location Updated!", Toast.LENGTH_LONG).show();
-	    	//send 'em back to the main page to see their updated location
-	    	Intent submitIntent = new Intent(this, MainActivity.class);
+			doWork(fbPost, twitterPost);
 
-	        // start that activity.
-	       startActivity(submitIntent);
-	       */
-		} catch (Exception e) {
-			Toast.makeText(this, this.getString(R.string.strCannotAcquireLocation), Toast.LENGTH_LONG).show();
+		}catch (Exception e) {
+			Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
 			
 		}
 //    	//more test dialog stuff
@@ -224,33 +247,7 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 		// TODO Auto-generated method stub
 		
 	}
-	
-//	public void facebookLogin(){
-//		// start Facebook Login
-//	    Session.openActiveSession(this, true, new Session.StatusCallback() {
-//
-//	      // callback when session changes state
-//	      @SuppressLint("ShowToast")
-//		@Override
-//	      public void call(Session session, SessionState state, Exception exception) {
-//	        if (session.isOpened()) {
-//
-//	          // make request to the /me API
-//	          Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
-//
-//	            // callback after Graph API response with user object
-//	            @Override
-//	            public void onCompleted(GraphUser user, Response response) {
-//	              if (user != null) {
-//	                Toast.makeText(getApplicationContext(), "It worked!", Toast.LENGTH_LONG).show();
-//	              }
-//	            }
-//	          });
-//	        }
-//	      }
-//	    });
-//	}
-	
+
 	
 	
 	@Override
@@ -259,9 +256,13 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 			if(resultCode == RESULT_OK){
 				//this is where we'll nigger rig the shit for the facebook and the twitter
 				if (data.getStringExtra(ConnectFacebookActivity.FACEBOOK_LOGGED_IN_KEY) != null){
-					Toast.makeText(getApplicationContext(), "It works! You're logged into facebook motherfucker", Toast.LENGTH_LONG).show();
-//
+					Toast.makeText(getApplicationContext(), "You're logged into Facebook!", Toast.LENGTH_LONG).show();
+					checkInBtn.performClick();
+
 //					doWork();
+				}else if (data.getStringExtra(ConnectTwitterActivity.TWITTER_CONNECTED_KEY) != null){
+					Toast.makeText(getApplicationContext(), "You're logged into Twitter!", Toast.LENGTH_LONG).show();
+					checkInBtn.performClick();
 				}
 			}
 			if (resultCode == RESULT_CANCELED) {
@@ -271,7 +272,7 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 
 	  }
 
-	public void doWork(boolean postToFB){
+	public void doWork(boolean postToFB, boolean postToTwitter){
 		//send the data in a new thread
 		//comment this out for right now
 		locationTime = (TimePicker)findViewById(R.id.LeavingTimePicker);
@@ -288,22 +289,31 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 		@SuppressWarnings("deprecation")
 		@Deprecated
 		Timestamp timestamp = new Timestamp(now.getYear(), now.getMonth(), now.getDate(), hour, minute, 0, 0);
-		if (postToFB) {
+		if (postToFB && ! postToTwitter) {
 			postToFacebookPage(timestamp, truckIntegrator.getTruckByTruckID(userIntegrator.getUserFromSharedPrefs().getTruckID()), lng);
+			postTruckLocation(latLng, timestamp, user);
 		}
-//			truckIntegrator.executeSendTruckDataAsyncTask(this, String.valueOf(latLng.getLongitude()), String.valueOf(latLng.getLatitude()), String.valueOf(timestamp.getTime()), user.getTruckID());
-//			Toast.makeText(this, "Location Updated!", Toast.LENGTH_LONG).show();
-	    	//send 'em back to the main page to see their updated location
-//	    	Intent submitIntent = new Intent(this, MainActivity.class);
-//
-//	        // start that activity.
-//	       startActivity(submitIntent);
+		if(postToTwitter && !postToFB){
+			postTweet(fbIntegrator.createUpdateMessage(timestamp, truckIntegrator.getTruckByTruckID(userIntegrator.getUserFromSharedPrefs().getTruckID()).getTruckName(), lng), latLng, timestamp, user);
 
+		}
+		if(postToFB && postToTwitter){
+			postToFacebookPage(timestamp, truckIntegrator.getTruckByTruckID(userIntegrator.getUserFromSharedPrefs().getTruckID()), lng);
+			postTweet(fbIntegrator.createUpdateMessage(timestamp, truckIntegrator.getTruckByTruckID(userIntegrator.getUserFromSharedPrefs().getTruckID()).getTruckName(), lng), latLng, timestamp, user);
+		}
 	}
 
 
 	public void postToFacebookPage(Timestamp ts, TruckOwner truck, LatLng ltLng){
-		AccessToken token = new AccessToken(fbIntegrator.getPreference(getResources().getString(R.string.facebook_page_access_token)), AccessToken.getCurrentAccessToken().getApplicationId(),
+		String accessTokenStr = fbIntegrator.getPreference(getResources().getString(R.string.facebook_page_access_token));
+//		if (accessTokenStr == null || accessTokenStr.equalsIgnoreCase("")){
+//			//if they're already logged into facebook, we can just do the work
+//			//otherwise send them to the login flow
+//			Intent i = new Intent(this, ConnectFacebookActivity.class);
+//			startActivityForResult(i, 1);
+//			return;
+//		}
+		AccessToken token = new AccessToken(accessTokenStr, AccessToken.getCurrentAccessToken().getApplicationId(),
 				AccessToken.getCurrentAccessToken().getUserId(), Arrays.asList("publish_actions", "manage_pages", "publish_pages"), null, AccessTokenSource.FACEBOOK_APPLICATION_SERVICE,
 				AccessToken.getCurrentAccessToken().getExpires(), AccessToken.getCurrentAccessToken().getLastRefresh());
 		AccessToken.setCurrentAccessToken(token);
@@ -318,7 +328,35 @@ public class LoginActivity extends BaseActionMenuActivity  implements GooglePlay
 			Toast.makeText(getApplicationContext(), "An error occurred posting to Facebook", Toast.LENGTH_LONG).show();
 //			e.printStackTrace();
 		}
-
-
 	}
+
+public void postTweet(String message, final Location latLng, final Timestamp timestamp, final User user){
+	StatusesService statusesService = Twitter.getApiClient(TwitterCore.getInstance().getSessionManager().getActiveSession()).getStatusesService();
+
+//        void update(@Field("status") String var1, @Field("in_reply_to_status_id") Long var2, @Field("possibly_sensitive") Boolean var3, @Field("lat") Double var4, @Field("long") Double var5, @Field("place_id") String var6, @Field("display_cooridnates") Boolean var7, @Field("trim_user") Boolean var8, Callback<Tweet> var9);
+	statusesService.update(message, null, null, null, null, null, null, null, new Callback<Tweet>() {
+
+		@Override
+		public void success(Result<Tweet> result) {
+			postTruckLocation(latLng, timestamp, user);
+
+		}
+
+		@Override
+		public void failure(TwitterException e) {
+			Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+		}
+	});
+}
+
+	public  void postTruckLocation(Location latLng, Timestamp timestamp, User user){
+		truckIntegrator.executeSendTruckDataAsyncTask(this, String.valueOf(latLng.getLongitude()), String.valueOf(latLng.getLatitude()), String.valueOf(timestamp.getTime()), user.getTruckID());
+			Toast.makeText(this, "Location Updated!", Toast.LENGTH_LONG).show();
+//		send 'em back to the main page to see their updated location
+	    	Intent submitIntent = new Intent(this, MainActivity.class);
+	        // start that activity.
+	       startActivity(submitIntent);
+	}
+
+
 }

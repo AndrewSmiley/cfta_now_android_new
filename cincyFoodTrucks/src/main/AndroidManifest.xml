@@ -185,6 +185,13 @@ android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|s
             android:name="com.facebook.FacebookActivity"
             android:theme="@style/AppTheme" >
         </activity>
+        <activity
+            android:name="com.cincyfoodtrucks.ui.ConnectTwitterActivity"
+            android:label="@string/CFTAN" >
+        </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="77d6ac92c5af7e9aeef70bbafb9a4ed0b5e1896f" />
     </application>
 
 </manifest>

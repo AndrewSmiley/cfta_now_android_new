@@ -128,5 +128,7 @@ mail updates</string>
     <string name="facebook_app_id">696538993808289</string>
     <string name="facebook_page_name">FACEBOOK_PAGE_NAME</string>
     <string name="facebook_page_access_token">FACEBOOK_PAGE_ACCESS_TOKEN</string>
+    <string name="twitter_username">TWITTER_USERNAME</string>
+    <!--<string name="facebook_page_access_token">FACEBOOK_PAGE_ACCESS_TOKEN</string>-->
     
 </resources>
